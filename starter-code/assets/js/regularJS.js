@@ -1,4 +1,3 @@
-// this is the database
 var pokemonDB = [
   {
     name: "bulbasaur",
@@ -115,10 +114,40 @@ while (a < attackBtnEl.length) {
   attackBtnEl[a].onclick = function() {
     var attackName = this.dataset.attack;
     gameState.currentUserAttack = attackName;
-    console.log(gameState.currentUserAttack);
+    //console.log(gameState.currentUserAttack);
+    play(attackName, cpuAttack());
   };
   a++;
 }
+
+var cpuAttack = function() {
+  var attacks = ["rock", "paper", "scissors"];
+
+  return attacks[randomNumber(0, 3)];
+};
+
+var play = function(userAttack, cpuAttack) {
+  switch (userAttack) {
+    case "rock":
+      //console.log(userAttack);
+      if (cpuAttack === "paper") {
+        console.log("paper killed rock");
+      }
+      if (cpuAttack === "scissors") {
+        console.log("rock killed scissors");
+      }
+      if (cpuAttack === "rock") {
+        console.log("It is a draw");
+      }
+      break;
+    case "paper":
+      //console.log(userAttack);
+      break;
+    case "scissors":
+      //console.log(userAttack);
+      break;
+  }
+};
 
 // find a number form 0 to ...
 var randomNumber = function(min, max) {
@@ -127,3 +156,18 @@ var randomNumber = function(min, max) {
 var cpuPick = function() {
   gameState.rivalPokemon = pokemonsEl[randomNumber(0, 3)].dataset.pokemon;
 };
+
+//<div class="battle-btns">
+//        <div class=" attack rock" data-attack="rock">
+//          <img src="//i.imgur.com/0sWAgmm.png" width="100%" />
+//          Rock
+//        </div>
+//        <div class="attack  paper" data-attack="paper">
+//          <img src="//i.imgur.com/aU8NcKH.png" />
+//          Paper
+//        </div>
+//        <div class="attack  scissors" data-attack="scissors">
+//          <img src="//i.imgur.com/n4HFHgj.png" />
+//          Scissors
+//        </div>
+//      </div>
