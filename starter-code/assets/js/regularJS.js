@@ -1,3 +1,4 @@
+// this is the database
 var pokemonDB = [
   {
     name: "bulbasaur",
@@ -27,12 +28,15 @@ var pokemonDB = [
     img: "https://www.smogon.com/dex/media/sprites/xy/squirtle.gif"
   }
 ];
+
+//state
 var gameState = {
   userPokemon: "",
   rivalPokemon: ""
 };
 
 console.log(gameState);
+//elements
 var pokemonsEl = document
   .querySelector(".select-screen")
   .querySelectorAll(".character");
@@ -40,15 +44,39 @@ var battleScreenEL = document.getElementById("battle-screen");
 
 //console.log(pokemonsEl);
 var i = 0;
+
+// this is the initial loop
 while (i < pokemonsEl.length) {
   pokemonsEl[i].onclick = function() {
     var pokemonName = this.dataset.pokemon;
-    //console.log("I pressed this polemon " + pokemonName);
+    var player1Img = document
+      .querySelector(".player1")
+      .getElementsByTagName("img");
+    var player2Img = document
+      .querySelector(".player2")
+      .getElementsByTagName("img");
+
+    //console.log(gameState);
+    //console.log("I pressed this pokemon " + pokemonName);
     gameState.userPokemon = pokemonName;
 
     cpuPick();
     battleScreenEL.classList.toggle("active");
-    console.log(gameState);
+
+    var currentPokemon = pokemonDB.filter(function(pokemon) {
+      return pokemon.name === gameState.userPokemon;
+    });
+
+    var currentRivalPokemon = pokemonDB.filter(function(pokemon) {
+      return pokemon.name === gameState.rivalPokemon;
+    });
+
+    player1Img[0].src = currentPokemon[0].img;
+    console.log(currentPokemon);
+
+    player2Img[0].src = currentRivalPokemon[0].img;
+
+    //console.log(player1Img[0]);
   };
   i++;
 }
