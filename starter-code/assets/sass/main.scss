@@ -12,6 +12,11 @@ body {
 * {
   box-sizing: border-box;
 }
+body {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
 /* SELECT SCREEN ============================================================*/
 .header {
   background: #0a0618; /* Old browsers */
@@ -110,6 +115,7 @@ body {
   text-align: center;
   box-sizing: border-box;
 }
+
 .select-screen .main .character {
   width: 200px;
   height: 200px;
@@ -120,6 +126,8 @@ body {
   border: 3px solid #000;
   float: left;
   margin: 0 25px;
+  cursor: pointer;
+  transition: background 0.5s ease-in-out;
 }
 
 .select-screen .main .character.charmander {
@@ -130,6 +138,10 @@ body {
 }
 .select-screen .main .character.squirtle {
   background: #64b2fa;
+}
+
+.select-screen .main .character:hover {
+  background: purple;
 }
 
 /* BATTLE SCREEN ============================================================*/
@@ -143,6 +155,13 @@ body {
   padding: 100px 50px;
   overflow: auto;
   height: 100vh;
+  position: relative;
+  top: 0;
+  transition: top 0.5s ease-in-out;
+}
+
+#battle-screen.active {
+  top: -100vh;
 }
 
 #battle-screen .fight-btn {
