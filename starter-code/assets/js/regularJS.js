@@ -36,35 +36,36 @@
 
 // // when one user loses all his health declare a winner
 
-var gameState = {
-  userPokemon: "",
-  rivalPokemon: ""
-};
+     var gameState = {
+        userPokemon: "",
+        rivalPokemon: ""
+      };
 
-console.log(gameState);
-var pokemonsEl = document
-  .querySelector(".select-screen")
-  .querySelectorAll(".character");
+      console.log(gameState);
+      var pokemonsEl = document
+        .querySelector(".select-screen")
+        .querySelectorAll(".character");
+      var battleScreenEL = document.getElementById("battle-screen");
 
-//console.log(pokemonsEl);
-var i = 0;
-while (i < pokemonsEl.length) {
-  pokemonsEl[i].onclick = function() {
-    var pokemonName = this.dataset.pokemon;
-    //console.log("I pressed this polemon " + pokemonName);
-    gameState.userPokemon = pokemonName;
+      //console.log(pokemonsEl);
+      var i = 0;
+      while (i < pokemonsEl.length) {
+        pokemonsEl[i].onclick = function() {
+          var pokemonName = this.dataset.pokemon;
+          //console.log("I pressed this polemon " + pokemonName);
+          gameState.userPokemon = pokemonName;
 
-    cpuPick();
+          cpuPick();
+          battleScreenEL.classList.toggle("active");
+          console.log(gameState);
+        };
+        i++;
+      }
 
-    console.log(gameState);
-  };
-  i++;
-}
-
-// find a number form 0 to ...
-function randomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-function cpuPick() {
-  gameState.rivalPokemon = pokemonsEl[randomNumber(0, 3)].dataset.pokemon;
-}
+      // find a number form 0 to ...
+      function randomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+      }
+      function cpuPick() {
+        gameState.rivalPokemon = pokemonsEl[randomNumber(0, 3)].dataset.pokemon;
+      }
