@@ -41,14 +41,20 @@ var pokemonsEl = document
   .querySelector(".select-screen")
   .querySelectorAll(".character");
 var battleScreenEL = document.getElementById("battle-screen");
+var attackBtnEl = document
+  .getElementById("battle-screen")
+  .querySelectorAll(".attack");
+//console.log(attackBtnEl);
 
 //console.log(pokemonsEl);
 var i = 0;
-
 // this is the initial loop
 while (i < pokemonsEl.length) {
+  //add function to all characters on screen select
   pokemonsEl[i].onclick = function() {
+    // current  selected pokemons name
     var pokemonName = this.dataset.pokemon;
+    //elements for images
     var player1Img = document
       .querySelector(".player1")
       .getElementsByTagName("img");
@@ -58,33 +64,66 @@ while (i < pokemonsEl.length) {
 
     //console.log(gameState);
     //console.log("I pressed this pokemon " + pokemonName);
+
+    //we saved the current polemon
     gameState.userPokemon = pokemonName;
 
+    // cpu pics a pokemon
     cpuPick();
+    // chamge screen to battle screen
     battleScreenEL.classList.toggle("active");
+    // select data from current user pokemon
 
     var currentPokemon = pokemonDB.filter(function(pokemon) {
       return pokemon.name === gameState.userPokemon;
     });
 
+    player1Img[0].src = currentPokemon[0].img;
+    //console.log(currentPokemon);
+    // select data from cpu pokemon
     var currentRivalPokemon = pokemonDB.filter(function(pokemon) {
       return pokemon.name === gameState.rivalPokemon;
     });
-
-    player1Img[0].src = currentPokemon[0].img;
-    console.log(currentPokemon);
-
     player2Img[0].src = currentRivalPokemon[0].img;
 
     //console.log(player1Img[0]);
+
+    // user choose attack
+
+    // cpu health goes down
+
+    // cpu attack
+
+    // user health goes down
+
+    // rock > scissors
+
+    // paper > rock
+
+    // scissors > paper
+
+    // depending on pokemon type and defense is how hard he attack is going to be
+    // and how much health it will take down
+
+    // then who ever gets to health  <= 0 loses
   };
   i++;
 }
 
+var a = 0;
+while (a < attackBtnEl.length) {
+  attackBtnEl[a].onclick = function() {
+    var attackName = this.dataset.attack;
+    gameState.currentUserAttack = attackName;
+    console.log(gameState.currentUserAttack);
+  };
+  a++;
+}
+
 // find a number form 0 to ...
-function randomNumber(min, max) {
+var randomNumber = function(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
-}
-function cpuPick() {
+};
+var cpuPick = function() {
   gameState.rivalPokemon = pokemonsEl[randomNumber(0, 3)].dataset.pokemon;
-}
+};
