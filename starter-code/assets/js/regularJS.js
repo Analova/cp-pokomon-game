@@ -33,8 +33,7 @@ var gameState = {
   userPokemon: "",
   rivalPokemon: ""
 };
-
-console.log(gameState);
+//console.log(gameState);
 //elements
 var pokemonsEl = document
   .querySelector(".select-screen")
@@ -87,8 +86,13 @@ while (i < pokemonsEl.length) {
     player2Img[0].src = gameState.currentRivalPokemon[0].img;
 
     //console.log(player1Img[0]);
+
+    // currentUsser and cpu pokemon initial health
     gameState.currentPokemon[0].health = calculateInitialHealth(
       gameState.currentPokemon
+    );
+    gameState.currentRivalPokemon[0].health = calculateInitialHealth(
+      gameState.currentRivalPokemon
     );
 
     console.log(gameState);
@@ -133,14 +137,31 @@ var cpuAttack = function() {
 };
 
 var calculateInitialHealth = function(user) {
-  console.log(user[0].level);
+  // console.log(user[0].level);
   return 0.2 * Math.sqrt(user[0].level) * user[0].defense * user[0].hp;
 };
 
+var attackMove = function(attack, level, stack, critical, enemy) {
+  console.log("enemy.health before " + enemy.health);
+  var attackAmount = attack * level * (stack + critical);
+  enemy.health = enemy.health - attackAmount;
+  console.log("enemy.health after " + enemy.health);
+};
+
 var play = function(userAttack, cpuAttack) {
+  var currentPokemon = gameState.currentPokemon[0];
+  var currentRivalPokemon = gameState.currentPokemon[0];
+  console.log("This is the currenp pokemon " + gameState.currentPokemon[0]);
   switch (userAttack) {
     case "rock":
-      //console.log(userAttack);
+      attackMove(
+        currentPokemon.attack,
+        currentPokemon.level,
+        0.8,
+        0.5,
+        currentRivalPokemon
+      );
+
       if (cpuAttack === "paper") {
         console.log("paper killed rock");
       }
