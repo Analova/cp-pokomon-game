@@ -71,21 +71,27 @@ while (i < pokemonsEl.length) {
     cpuPick();
     // chamge screen to battle screen
     battleScreenEL.classList.toggle("active");
+
     // select data from current user pokemon
 
-    var currentPokemon = pokemonDB.filter(function(pokemon) {
+    gameState.currentPokemon = pokemonDB.filter(function(pokemon) {
       return pokemon.name === gameState.userPokemon;
     });
 
-    player1Img[0].src = currentPokemon[0].img;
+    player1Img[0].src = gameState.currentPokemon[0].img;
     //console.log(currentPokemon);
     // select data from cpu pokemon
-    var currentRivalPokemon = pokemonDB.filter(function(pokemon) {
+    gameState.currentRivalPokemon = pokemonDB.filter(function(pokemon) {
       return pokemon.name === gameState.rivalPokemon;
     });
-    player2Img[0].src = currentRivalPokemon[0].img;
+    player2Img[0].src = gameState.currentRivalPokemon[0].img;
 
     //console.log(player1Img[0]);
+    gameState.currentPokemon[0].health = calculateInitialHealth(
+      gameState.currentPokemon
+    );
+
+    console.log(gameState);
 
     // user choose attack
 
@@ -126,6 +132,11 @@ var cpuAttack = function() {
   return attacks[randomNumber(0, 3)];
 };
 
+var calculateInitialHealth = function(user) {
+  console.log(user[0].level);
+  return 0.2 * Math.sqrt(user[0].level) * user[0].defense * user[0].hp;
+};
+
 var play = function(userAttack, cpuAttack) {
   switch (userAttack) {
     case "rock":
@@ -157,17 +168,19 @@ var cpuPick = function() {
   gameState.rivalPokemon = pokemonsEl[randomNumber(0, 3)].dataset.pokemon;
 };
 
-//<div class="battle-btns">
-//        <div class=" attack rock" data-attack="rock">
-//          <img src="//i.imgur.com/0sWAgmm.png" width="100%" />
-//          Rock
-//        </div>
-//        <div class="attack  paper" data-attack="paper">
-//          <img src="//i.imgur.com/aU8NcKH.png" />
-//          Paper
-//        </div>
-//        <div class="attack  scissors" data-attack="scissors">
-//          <img src="//i.imgur.com/n4HFHgj.png" />
-//          Scissors
-//        </div>
-//      </div>
+// var attack = 20;
+// var level = 10;
+// var stack = 1.3;
+// var stamina = 39;
+
+// // create a formula for attacks
+// console.log((attack * level ) * stack / 7)
+
+// // create a formula for health
+// //HP = 0.20 x Sqrt(Pokemon_level) x (HP_base_stat)
+// console.log(((0.20 * Math.sqrt(level)) * stamina) * 15)
+
+// // let user choose 1 and then assign a random pokemon to battle thats not the users pokemon
+// // p1 vs p2
+
+// // when one user loses all his health declare a winner
